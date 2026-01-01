@@ -34,13 +34,17 @@
       -webkit-font-smoothing: antialiased;
     }
 
+    html {
+      scroll-padding-top: 110px;
+    }
+
     a { color: inherit; text-decoration: none; }
 
     .page {
       width: 100%;
       max-width: none;
       margin: 0;
-      padding: 80px 48px 72px;
+      padding: 80px 48px 0;
     }
 
     header.nav-shell {
@@ -231,6 +235,7 @@
 
     section {
       margin-top: 80px;
+      scroll-margin-top: 110px;
     }
 
     .section-header {
@@ -361,11 +366,82 @@
       font-size: 13px;
     }
 
-    .stack {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 12px;
+    .stack-wrapper {
+      overflow: hidden;
+      width: 100%;
+      position: relative;
+      mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+      -webkit-mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
     }
+
+    .stack {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      width: max-content;
+      animation: scroll-left 25s linear infinite;
+    }
+
+    .stack:hover {
+      animation-play-state: paused;
+    }
+
+    @keyframes scroll-left {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    .stack-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 48px;
+      min-width: 120px;
+      padding: 0 32px;
+      border-radius: 999px;
+      border: none;
+      background: #f0f0f0;
+      color: rgba(10, 12, 16, 0.9);
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      white-space: nowrap;
+      position: relative;
+    }
+
+    .stack-pill img {
+      height: 22px;
+      width: auto;
+      max-width: 120px;
+      display: block;
+      opacity: 0.85;
+    }
+
+    .stack-text {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    .stack-pill.fallback .stack-text {
+      position: static;
+      width: auto;
+      height: auto;
+      margin: 0;
+      overflow: visible;
+      clip: auto;
+    }
+
+    .stack-pill.fallback img {
+      display: none !important;
+    }
+
 
     .stack-group {
       border: 1px solid var(--line);
@@ -529,14 +605,96 @@
     }
 
     footer {
-      margin-top: 60px;
-      padding-top: 20px;
+      margin-top: 64px;
+      padding: 28px 48px;
+      margin-left: -48px;
+      width: calc(100% + 96px);
       border-top: 1px solid var(--line);
+      border-radius: 0;
+      background: linear-gradient(145deg, rgba(11, 99, 246, 0.05), rgba(255, 255, 255, 0.98));
+    }
+
+    .footer-top {
+      display: grid;
+      grid-template-columns: 1.3fr 1fr;
+      gap: 18px;
+      align-items: start;
+    }
+
+    .footer-brand {
+      display: grid;
+      gap: 10px;
+    }
+
+    .footer-title {
+      font-weight: 700;
+      letter-spacing: -0.2px;
+    }
+
+    .footer-subtitle {
+      color: var(--muted);
+      font-size: 14px;
+      max-width: 62ch;
+    }
+
+    .footer-right {
+      display: grid;
+      gap: 14px;
+      justify-items: end;
+    }
+
+    .social {
       display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .social a {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      border: 1px solid rgba(11, 99, 246, 0.14);
+      background: rgba(255, 255, 255, 0.9);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(10, 12, 16, 0.82);
+      transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease, background 180ms ease;
+    }
+
+    .social a:hover {
+      transform: translateY(-2px);
+      border-color: rgba(11, 99, 246, 0.28);
+      background: #fff;
+      box-shadow: 0 12px 30px rgba(10, 85, 209, 0.10);
+    }
+
+    .social svg {
+      width: 18px;
+      height: 18px;
+      fill: currentColor;
+    }
+
+    .footer-bottom {
+      margin-top: 18px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(230, 233, 240, 0.9);
+      display: flex;
+      gap: 12px;
       align-items: center;
       justify-content: space-between;
       color: var(--muted);
-      font-size: 14px;
+      font-size: 13px;
+    }
+
+    .footer-bottom a {
+      color: var(--muted);
+      font-weight: 600;
+      transition: color 180ms ease;
+    }
+
+    .footer-bottom a:hover {
+      color: var(--blue-800);
     }
 
     @media (max-width: 840px) {
@@ -563,6 +721,25 @@
       .contact-grid {
         grid-template-columns: 1fr;
       }
+
+      footer {
+        padding: 22px 24px;
+        margin-left: -24px;
+        width: calc(100% + 48px);
+      }
+
+      .footer-top {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-right {
+        justify-items: start;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+        align-items: flex-start;
+      }
     }
   </style>
 </head>
@@ -587,7 +764,7 @@
       <div>
         <div class="pill">AI • Blockchain • Quant Systems</div>
         <h1>I build intelligent systems that compound value.</h1>
-        <p>I am a senior architect delivering AI automation, secure decentralized infrastructure, and algorithmic trading engines. 12+ years shipping production-grade systems for funds, enterprises, and venture-backed founders.</p>
+        <p>I am a senior architect delivering AI automation, secure decentralized infrastructure, and algorithmic trading engines. 5+ years shipping production-grade systems for funds, enterprises, and venture-backed founders.</p>
         <div class="hero__meta">
           <span class="pill">Independent & accountable</span>
           <span class="pill">Architecture to execution</span>
@@ -753,49 +930,172 @@
       <div class="section-header">
         <h2>Technology Stack</h2>
         <p>Selected, proven tools chosen for security, performance, and operability—no unnecessary complexity.</p>
-                        </div>
-      <div class="stack">
-        <div class="stack-group">
-          <h4>AI & Data</h4>
-          <div class="badges">
-            <span class="badge">Python</span>
-            <span class="badge">PyTorch</span>
-            <span class="badge">Transformers</span>
-            <span class="badge">Ray</span>
-            <span class="badge">Airflow</span>
-            <span class="badge">LangChain</span>
-            <span class="badge">Postgres</span>
-            <span class="badge">DuckDB</span>
-                        </div>
-                        </div>
-        <div class="stack-group">
-          <h4>Blockchain</h4>
-          <div class="badges">
-            <span class="badge">Solidity</span>
-            <span class="badge">Rust</span>
-            <span class="badge">Hardhat</span>
-            <span class="badge">Foundry</span>
-            <span class="badge">EVM / L2</span>
-            <span class="badge">Cosmos-SDK</span>
-            <span class="badge">zk-friendly</span>
-            <span class="badge">Geth / Erigon</span>
+      </div>
+      <div class="stack-wrapper">
+        <div class="stack">
+          <div class="stack-pill" aria-label="Python" title="Python">
+            <img src="https://api.iconify.design/simple-icons:python.svg?color=%230a0c10" alt="Python" loading="lazy">
+            <span class="stack-text">Python</span>
+          </div>
+          <div class="stack-pill" aria-label="PyTorch" title="PyTorch">
+            <img src="https://api.iconify.design/simple-icons:pytorch.svg?color=%230a0c10" alt="PyTorch" loading="lazy">
+            <span class="stack-text">PyTorch</span>
+          </div>
+          <div class="stack-pill" aria-label="Transformers" title="Transformers">
+            <img src="https://api.iconify.design/simple-icons:huggingface.svg?color=%230a0c10" alt="Transformers" loading="lazy">
+            <span class="stack-text">Transformers</span>
+          </div>
+          <div class="stack-pill" aria-label="Ray" title="Ray">
+            <img src="https://api.iconify.design/simple-icons:ray.svg?color=%230a0c10" alt="Ray" loading="lazy">
+            <span class="stack-text">Ray</span>
+          </div>
+          <div class="stack-pill" aria-label="Airflow" title="Airflow">
+            <img src="https://api.iconify.design/simple-icons:apacheairflow.svg?color=%230a0c10" alt="Airflow" loading="lazy">
+            <span class="stack-text">Airflow</span>
+          </div>
+          <div class="stack-pill" aria-label="LangChain" title="LangChain">
+            <img src="https://api.iconify.design/simple-icons:langchain.svg?color=%230a0c10" alt="LangChain" loading="lazy">
+            <span class="stack-text">LangChain</span>
+          </div>
+          <div class="stack-pill" aria-label="Postgres" title="Postgres">
+            <img src="https://api.iconify.design/simple-icons:postgresql.svg?color=%230a0c10" alt="Postgres" loading="lazy">
+            <span class="stack-text">Postgres</span>
+          </div>
+          <div class="stack-pill" aria-label="DuckDB" title="DuckDB">
+            <img src="https://api.iconify.design/simple-icons:duckdb.svg?color=%230a0c10" alt="DuckDB" loading="lazy">
+            <span class="stack-text">DuckDB</span>
+          </div>
+          <div class="stack-pill" aria-label="Solidity" title="Solidity">
+            <img src="https://api.iconify.design/simple-icons:solidity.svg?color=%230a0c10" alt="Solidity" loading="lazy">
+            <span class="stack-text">Solidity</span>
+          </div>
+          <div class="stack-pill" aria-label="Rust" title="Rust">
+            <img src="https://api.iconify.design/simple-icons:rust.svg?color=%230a0c10" alt="Rust" loading="lazy">
+            <span class="stack-text">Rust</span>
+          </div>
+          <div class="stack-pill" aria-label="Hardhat" title="Hardhat">
+            <img src="https://api.iconify.design/simple-icons:hardhat.svg?color=%230a0c10" alt="Hardhat" loading="lazy">
+            <span class="stack-text">Hardhat</span>
+          </div>
+          <div class="stack-pill" aria-label="Foundry" title="Foundry">
+            <img src="https://api.iconify.design/simple-icons:foundry.svg?color=%230a0c10" alt="Foundry" loading="lazy">
+            <span class="stack-text">Foundry</span>
+          </div>
+          <div class="stack-pill" aria-label="Go" title="Go">
+            <img src="https://api.iconify.design/simple-icons:go.svg?color=%230a0c10" alt="Go" loading="lazy">
+            <span class="stack-text">Go</span>
+          </div>
+          <div class="stack-pill" aria-label="Node.js" title="Node.js">
+            <img src="https://api.iconify.design/simple-icons:nodedotjs.svg?color=%230a0c10" alt="Node.js" loading="lazy">
+            <span class="stack-text">Node.js</span>
+          </div>
+          <div class="stack-pill" aria-label="Kafka" title="Kafka">
+            <img src="https://api.iconify.design/simple-icons:apachekafka.svg?color=%230a0c10" alt="Kafka" loading="lazy">
+            <span class="stack-text">Kafka</span>
+          </div>
+          <div class="stack-pill" aria-label="Redis" title="Redis">
+            <img src="https://api.iconify.design/simple-icons:redis.svg?color=%230a0c10" alt="Redis" loading="lazy">
+            <span class="stack-text">Redis</span>
+          </div>
+          <div class="stack-pill" aria-label="Kubernetes" title="Kubernetes">
+            <img src="https://api.iconify.design/simple-icons:kubernetes.svg?color=%230a0c10" alt="Kubernetes" loading="lazy">
+            <span class="stack-text">Kubernetes</span>
+          </div>
+          <div class="stack-pill" aria-label="Terraform" title="Terraform">
+            <img src="https://api.iconify.design/simple-icons:terraform.svg?color=%230a0c10" alt="Terraform" loading="lazy">
+            <span class="stack-text">Terraform</span>
+          </div>
+          <div class="stack-pill" aria-label="Prometheus" title="Prometheus">
+            <img src="https://api.iconify.design/simple-icons:prometheus.svg?color=%230a0c10" alt="Prometheus" loading="lazy">
+            <span class="stack-text">Prometheus</span>
+          </div>
+          <div class="stack-pill" aria-label="Grafana" title="Grafana">
+            <img src="https://api.iconify.design/simple-icons:grafana.svg?color=%230a0c10" alt="Grafana" loading="lazy">
+            <span class="stack-text">Grafana</span>
+          </div>
+          <!-- Duplicate for seamless loop -->
+          <div class="stack-pill" aria-label="Python" title="Python">
+            <img src="https://api.iconify.design/simple-icons:python.svg?color=%230a0c10" alt="Python" loading="lazy">
+            <span class="stack-text">Python</span>
+          </div>
+          <div class="stack-pill" aria-label="PyTorch" title="PyTorch">
+            <img src="https://api.iconify.design/simple-icons:pytorch.svg?color=%230a0c10" alt="PyTorch" loading="lazy">
+            <span class="stack-text">PyTorch</span>
+          </div>
+          <div class="stack-pill" aria-label="Transformers" title="Transformers">
+            <img src="https://api.iconify.design/simple-icons:huggingface.svg?color=%230a0c10" alt="Transformers" loading="lazy">
+            <span class="stack-text">Transformers</span>
+          </div>
+          <div class="stack-pill" aria-label="Ray" title="Ray">
+            <img src="https://api.iconify.design/simple-icons:ray.svg?color=%230a0c10" alt="Ray" loading="lazy">
+            <span class="stack-text">Ray</span>
+          </div>
+          <div class="stack-pill" aria-label="Airflow" title="Airflow">
+            <img src="https://api.iconify.design/simple-icons:apacheairflow.svg?color=%230a0c10" alt="Airflow" loading="lazy">
+            <span class="stack-text">Airflow</span>
+          </div>
+          <div class="stack-pill" aria-label="LangChain" title="LangChain">
+            <img src="https://api.iconify.design/simple-icons:langchain.svg?color=%230a0c10" alt="LangChain" loading="lazy">
+            <span class="stack-text">LangChain</span>
+          </div>
+          <div class="stack-pill" aria-label="Postgres" title="Postgres">
+            <img src="https://api.iconify.design/simple-icons:postgresql.svg?color=%230a0c10" alt="Postgres" loading="lazy">
+            <span class="stack-text">Postgres</span>
+          </div>
+          <div class="stack-pill" aria-label="DuckDB" title="DuckDB">
+            <img src="https://api.iconify.design/simple-icons:duckdb.svg?color=%230a0c10" alt="DuckDB" loading="lazy">
+            <span class="stack-text">DuckDB</span>
+          </div>
+          <div class="stack-pill" aria-label="Solidity" title="Solidity">
+            <img src="https://api.iconify.design/simple-icons:solidity.svg?color=%230a0c10" alt="Solidity" loading="lazy">
+            <span class="stack-text">Solidity</span>
+          </div>
+          <div class="stack-pill" aria-label="Rust" title="Rust">
+            <img src="https://api.iconify.design/simple-icons:rust.svg?color=%230a0c10" alt="Rust" loading="lazy">
+            <span class="stack-text">Rust</span>
+          </div>
+          <div class="stack-pill" aria-label="Hardhat" title="Hardhat">
+            <img src="https://api.iconify.design/simple-icons:hardhat.svg?color=%230a0c10" alt="Hardhat" loading="lazy">
+            <span class="stack-text">Hardhat</span>
+          </div>
+          <div class="stack-pill" aria-label="Foundry" title="Foundry">
+            <img src="https://api.iconify.design/simple-icons:foundry.svg?color=%230a0c10" alt="Foundry" loading="lazy">
+            <span class="stack-text">Foundry</span>
+          </div>
+          <div class="stack-pill" aria-label="Go" title="Go">
+            <img src="https://api.iconify.design/simple-icons:go.svg?color=%230a0c10" alt="Go" loading="lazy">
+            <span class="stack-text">Go</span>
+          </div>
+          <div class="stack-pill" aria-label="Node.js" title="Node.js">
+            <img src="https://api.iconify.design/simple-icons:nodedotjs.svg?color=%230a0c10" alt="Node.js" loading="lazy">
+            <span class="stack-text">Node.js</span>
+          </div>
+          <div class="stack-pill" aria-label="Kafka" title="Kafka">
+            <img src="https://api.iconify.design/simple-icons:apachekafka.svg?color=%230a0c10" alt="Kafka" loading="lazy">
+            <span class="stack-text">Kafka</span>
+          </div>
+          <div class="stack-pill" aria-label="Redis" title="Redis">
+            <img src="https://api.iconify.design/simple-icons:redis.svg?color=%230a0c10" alt="Redis" loading="lazy">
+            <span class="stack-text">Redis</span>
+          </div>
+          <div class="stack-pill" aria-label="Kubernetes" title="Kubernetes">
+            <img src="https://api.iconify.design/simple-icons:kubernetes.svg?color=%230a0c10" alt="Kubernetes" loading="lazy">
+            <span class="stack-text">Kubernetes</span>
+          </div>
+          <div class="stack-pill" aria-label="Terraform" title="Terraform">
+            <img src="https://api.iconify.design/simple-icons:terraform.svg?color=%230a0c10" alt="Terraform" loading="lazy">
+            <span class="stack-text">Terraform</span>
+          </div>
+          <div class="stack-pill" aria-label="Prometheus" title="Prometheus">
+            <img src="https://api.iconify.design/simple-icons:prometheus.svg?color=%230a0c10" alt="Prometheus" loading="lazy">
+            <span class="stack-text">Prometheus</span>
+          </div>
+          <div class="stack-pill" aria-label="Grafana" title="Grafana">
+            <img src="https://api.iconify.design/simple-icons:grafana.svg?color=%230a0c10" alt="Grafana" loading="lazy">
+            <span class="stack-text">Grafana</span>
           </div>
         </div>
-        <div class="stack-group">
-          <h4>Trading & Infra</h4>
-          <div class="badges">
-            <span class="badge">C++</span>
-            <span class="badge">Go</span>
-            <span class="badge">Node.js</span>
-            <span class="badge">Kafka</span>
-            <span class="badge">Redis</span>
-            <span class="badge">Kubernetes</span>
-            <span class="badge">Terraform</span>
-            <span class="badge">Prometheus</span>
-            <span class="badge">Grafana</span>
-                </div>
-            </div>
-        </div>
+      </div>
     </section>
 
     <section id="contact">
@@ -837,8 +1137,47 @@
     </section>
 
     <footer>
-      <span>Akil — Applied Intelligence Architect</span>
-      <span>Built for decisive leaders • Security and performance first</span>
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="footer-title">Akil — Applied Intelligence Architect</div>
+          <div class="footer-subtitle">Built for decisive leaders. Security, performance, and operability in every layer.</div>
+        </div>
+
+        <div class="footer-right">
+          <div class="social" aria-label="Social links">
+            <a href="https://github.com/" target="_blank" rel="noopener noreferrer" aria-label="GitHub" title="GitHub">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 2C6.477 2 2 6.484 2 12.02c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.866-.013-1.699-2.782.605-3.369-1.343-3.369-1.343-.454-1.156-1.11-1.465-1.11-1.465-.908-.62.069-.608.069-.608 1.004.071 1.532 1.033 1.532 1.033.892 1.53 2.341 1.088 2.91.832.091-.647.35-1.089.636-1.34-2.22-.253-4.555-1.113-4.555-4.953 0-1.094.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.027A9.564 9.564 0 0 1 12 6.844a9.57 9.57 0 0 1 2.504.337c1.909-1.298 2.748-1.027 2.748-1.027.545 1.378.202 2.397.1 2.65.64.7 1.028 1.594 1.028 2.688 0 3.85-2.338 4.697-4.566 4.945.359.31.678.92.678 1.854 0 1.337-.012 2.415-.012 2.743 0 .268.18.58.688.481A10.02 10.02 0 0 0 22 12.02C22 6.484 17.523 2 12 2z"/>
+              </svg>
+            </a>
+            <a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" title="LinkedIn">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M20.447 20.452H17.21v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.446-2.136 2.939v5.667H9.084V9h3.112v1.561h.044c.434-.82 1.494-1.685 3.073-1.685 3.287 0 3.894 2.164 3.894 4.977v6.599zM5.337 7.433A1.814 1.814 0 1 1 5.34 3.806a1.814 1.814 0 0 1-.003 3.627zM6.956 20.452H3.72V9h3.236v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.727v20.545C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.273V1.727C24 .774 23.2 0 22.222 0h.003z"/>
+              </svg>
+            </a>
+            <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" title="Instagram">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M7.5 2h9A5.5 5.5 0 0 1 22 7.5v9A5.5 5.5 0 0 1 16.5 22h-9A5.5 5.5 0 0 1 2 16.5v-9A5.5 5.5 0 0 1 7.5 2zm9 2h-9A3.5 3.5 0 0 0 4 7.5v9A3.5 3.5 0 0 0 7.5 20h9A3.5 3.5 0 0 0 20 16.5v-9A3.5 3.5 0 0 0 16.5 4zm-4.5 3.5A4.5 4.5 0 1 1 7.5 12 4.5 4.5 0 0 1 12 7.5zm0 2A2.5 2.5 0 1 0 14.5 12 2.5 2.5 0 0 0 12 9.5zM17.6 6.3a1 1 0 1 1-1 1 1 1 0 0 1 1-1z"/>
+              </svg>
+            </a>
+            <a href="https://wa.me/" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" title="WhatsApp">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M20.52 3.48A11.86 11.86 0 0 0 12.02 0C5.4 0 .02 5.38.02 12c0 2.1.55 4.16 1.6 5.98L0 24l6.2-1.6A11.92 11.92 0 0 0 12.02 24C18.64 24 24 18.62 24 12c0-3.2-1.25-6.2-3.48-8.52zM12.02 22a9.9 9.9 0 0 1-5.05-1.4l-.36-.22-3.68.95.98-3.58-.24-.37A9.86 9.86 0 0 1 2.02 12c0-5.52 4.49-10 10-10 2.67 0 5.18 1.04 7.07 2.93A9.93 9.93 0 0 1 22.02 12c0 5.52-4.49 10-10 10zm5.67-7.44c-.31-.16-1.84-.91-2.13-1.01-.29-.11-.5-.16-.71.16-.21.31-.82 1.01-1.01 1.22-.19.21-.37.23-.68.08-.31-.16-1.3-.48-2.47-1.53-.91-.81-1.52-1.81-1.7-2.12-.18-.31-.02-.48.14-.64.14-.14.31-.37.47-.55.16-.19.21-.32.31-.53.11-.21.05-.4-.03-.55-.08-.16-.71-1.71-.98-2.35-.26-.62-.52-.54-.71-.55h-.61c-.21 0-.55.08-.84.4-.29.31-1.1 1.07-1.1 2.62 0 1.54 1.13 3.03 1.29 3.24.16.21 2.22 3.39 5.38 4.76.75.32 1.33.51 1.78.66.75.24 1.44.21 1.98.13.6-.09 1.84-.75 2.1-1.47.26-.72.26-1.34.18-1.47-.08-.13-.29-.21-.6-.37z"/>
+              </svg>
+            </a>
+            <a href="mailto:hello@example.com" aria-label="Email" title="Email">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>© <span id="year"></span> Akil. All rights reserved.</span>
+        <a href="#hero">Back to top</a>
+      </div>
     </footer>
   </div>
   <script>
@@ -856,6 +1195,48 @@
         lastScroll = currentScroll;
       }, { passive: true });
     }
+
+    const yearEl = document.getElementById('year');
+    if (yearEl) {
+      yearEl.textContent = new Date().getFullYear();
+    }
+
+    const headerEl = document.querySelector('header.nav-shell');
+    const scrollToSection = (hash) => {
+      if (!hash || hash === '#') return;
+      const target = document.querySelector(hash);
+      if (!target) return;
+      const headerHeight = headerEl ? headerEl.getBoundingClientRect().height : 0;
+      const top = window.scrollY + target.getBoundingClientRect().top - headerHeight - 16;
+      window.scrollTo({ top: Math.max(top, 0), behavior: 'smooth' });
+    };
+
+    document.querySelectorAll('.nav-links a[href^="#"]').forEach(a => {
+      a.addEventListener('click', (e) => {
+        const href = a.getAttribute('href');
+        if (!href || href === '#') return;
+        e.preventDefault();
+        history.pushState(null, '', href);
+        scrollToSection(href);
+      });
+    });
+
+    if (location.hash) {
+      setTimeout(() => scrollToSection(location.hash), 0);
+    }
+
+    // Stack logo fallback handler
+    document.querySelectorAll('.stack-pill img').forEach(img => {
+      img.addEventListener('error', function() {
+        this.style.display = 'none';
+        this.parentElement.classList.add('fallback');
+      });
+      // Handle already-failed images (cached failures)
+      if (img.complete && img.naturalWidth === 0) {
+        img.style.display = 'none';
+        img.parentElement.classList.add('fallback');
+      }
+    });
   </script>
 </body>
 </html>
