@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI, Blockchain, Quant Architecture | Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text: #0a0c10;
+      --muted: #4a5568;
+      --line: #e6e9f0;
+      --blue-600: #0b63f6;
+      --blue-700: #0a54d1;
+      --blue-800: #093fa7;
+      --shadow: 0 20px 60px rgba(10, 85, 209, 0.08);
+      --radius: 14px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .page {
+      width: 100%;
+      max-width: none;
+      margin: 0;
+      padding: 80px 48px 72px;
+    }
+
+    header.nav-shell {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 50;
+      background: #ffffff;
+      border-bottom: 1px solid transparent;
+      background-image: linear-gradient(to bottom, rgba(11, 99, 246, 0.08) 0%, rgba(11, 99, 246, 0.02) 50%, transparent 100%);
+      background-size: 100% 1px;
+      background-repeat: no-repeat;
+      background-position: bottom;
+      transition: box-shadow 300ms ease, border-bottom-color 300ms ease;
+    }
+
+    header.nav-shell.scrolled {
+      box-shadow: 0 2px 12px rgba(10, 85, 209, 0.06);
+      border-bottom-color: rgba(11, 99, 246, 0.12);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 48px;
+      max-width: 100%;
+      margin: 0 auto;
+    }
+
+    .nav-links {
+      display: inline-flex;
+      align-items: center;
+      gap: 32px;
+      font-size: 14px;
+      letter-spacing: 0.02em;
+      font-weight: 500;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      font-weight: 700;
+      font-size: 15px;
+      letter-spacing: -0.2px;
+      color: var(--text);
+    }
+
+    .nav-link {
+      position: relative;
+      padding: 4px 0;
+      color: var(--muted);
+      font-weight: 500;
+      font-size: 14px;
+      letter-spacing: 0.01em;
+      transition: color 250ms ease;
+    }
+
+    .nav-link::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, var(--blue-600), var(--blue-800));
+      opacity: 0;
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: opacity 250ms ease, transform 250ms ease;
+    }
+
+    .nav-link:hover {
+      color: var(--blue-700);
+    }
+
+    .nav-link:hover::after,
+    .nav-link.active::after {
+      opacity: 1;
+      transform: scaleX(1);
+    }
+
+    .nav-link.active {
+      color: var(--blue-800);
+      font-weight: 600;
+    }
+
+    .nav-link.nav-cta {
+      padding: 8px 16px;
+      border-radius: 8px;
+      border: 1px solid rgba(11, 99, 246, 0.2);
+      background: transparent;
+      color: var(--blue-800);
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      transition: all 250ms ease;
+    }
+
+    .nav-link.nav-cta::after {
+      display: none;
+    }
+
+    .nav-link.nav-cta:hover {
+      color: #ffffff;
+      border-color: transparent;
+      background: linear-gradient(135deg, var(--blue-600), var(--blue-800));
+      box-shadow: 0 4px 16px rgba(11, 99, 246, 0.2);
+      transform: translateY(-1px);
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(11, 99, 246, 0.08);
+      color: var(--blue-800);
+      font-weight: 600;
+      font-size: 13px;
+      letter-spacing: 0.2px;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 32px;
+      padding: 28px;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: radial-gradient(circle at 15% 20%, rgba(11, 99, 246, 0.08), transparent 35%),
+                  radial-gradient(circle at 80% 0%, rgba(9, 63, 167, 0.08), transparent 30%),
+                  #fff;
+      box-shadow: var(--shadow);
+    }
+
+    .hero h1 {
+      font-size: clamp(32px, 4vw, 48px);
+      line-height: 1.2;
+      letter-spacing: -0.6px;
+      margin: 12px 0 18px;
+    }
+
+    .hero p {
+      color: var(--muted);
+      max-width: 620px;
+      font-size: 16px;
+    }
+
+    .hero__meta {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin: 18px 0 24px;
+    }
+
+    .cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14px 20px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--blue-600), var(--blue-800));
+      color: #fff;
+      font-weight: 700;
+      letter-spacing: 0.2px;
+      transition: transform 200ms ease, box-shadow 200ms ease;
+      box-shadow: 0 15px 40px rgba(11, 99, 246, 0.2);
+    }
+
+    .cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 18px 48px rgba(11, 99, 246, 0.25);
+    }
+
+    .cta.secondary {
+      background: transparent;
+      color: var(--blue-800);
+      border: 1px solid rgba(11, 99, 246, 0.2);
+      box-shadow: none;
+    }
+
+    .cta.secondary:hover {
+      background: rgba(11, 99, 246, 0.08);
+      transform: translateY(-2px);
+    }
+
+    section {
+      margin-top: 80px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 20px;
+      margin-bottom: 28px;
+    }
+
+    .section-header h2 {
+      font-size: 24px;
+      letter-spacing: -0.3px;
+    }
+
+    .section-header p {
+      color: var(--muted);
+      max-width: 620px;
+      font-size: 15px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 18px;
+    }
+
+    .card {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 20px;
+      background: #fff;
+      transition: transform 200ms ease, border-color 200ms ease, box-shadow 200ms ease;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(11, 99, 246, 0.3);
+      box-shadow: var(--shadow);
+    }
+
+    .card h3 {
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+
+    .card p {
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .list {
+      display: grid;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .list li {
+      list-style: none;
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .list li::before {
+      content: "•";
+      color: var(--blue-700);
+      font-weight: 700;
+    }
+
+    .use-cases {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 16px;
+    }
+
+    .case {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 20px;
+      background: linear-gradient(180deg, rgba(11, 99, 246, 0.06), rgba(11, 99, 246, 0.02));
+    }
+
+    .case strong {
+      display: inline-block;
+      margin-bottom: 8px;
+      color: var(--blue-800);
+      font-size: 13px;
+      letter-spacing: 0.3px;
+    }
+
+    .case h3 {
+      margin-bottom: 8px;
+      font-size: 17px;
+    }
+
+    .case p {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .process {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 14px;
+    }
+
+    .step {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 16px;
+      background: #fff;
+    }
+
+    .step span {
+      display: inline-flex;
+      width: 32px;
+      height: 32px;
+      align-items: center;
+      justify-content: center;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--blue-600), var(--blue-800));
+      color: #fff;
+      font-weight: 700;
+      margin-bottom: 8px;
+      font-size: 13px;
+    }
+
+    .stack {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+    }
+
+    .stack-group {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 16px;
+      background: #fff;
+    }
+
+    .stack-group h4 {
+      margin-bottom: 10px;
+      font-size: 15px;
+      letter-spacing: 0.2px;
+    }
+
+    .badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .badge {
+      padding: 6px 10px;
+      border-radius: 10px;
+      background: rgba(11, 99, 246, 0.08);
+      color: var(--blue-800);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+    }
+
+    .contact {
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 28px;
+      background: linear-gradient(145deg, rgba(11, 99, 246, 0.06), rgba(255, 255, 255, 0.9));
+      box-shadow: var(--shadow);
+    }
+
+    .contact-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 20px;
+    }
+
+    .contact-header h2 {
+      font-size: 22px;
+      letter-spacing: -0.2px;
+    }
+
+    .contact-header p {
+      color: var(--muted);
+      max-width: 620px;
+      font-size: 15px;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1.05fr 1fr;
+      gap: 18px;
+      align-items: start;
+    }
+
+    .contact-meta {
+      border: 1px solid rgba(11, 99, 246, 0.14);
+      border-radius: 16px;
+      padding: 18px;
+      background: #fff;
+    }
+
+    .contact-meta h3 {
+      margin-bottom: 10px;
+      font-size: 18px;
+    }
+
+    .contact-meta p {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .contact-meta .list {
+      margin-top: 14px;
+    }
+
+    form.contact-form {
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 18px;
+      background: #fff;
+      display: grid;
+      gap: 14px;
+    }
+
+    .field {
+      display: grid;
+      gap: 6px;
+    }
+
+    .field label {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      color: var(--text);
+    }
+
+    .field input,
+    .field textarea {
+      width: 100%;
+      padding: 12px 12px;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      background: #f8fafd;
+      font-size: 14px;
+      color: var(--text);
+      transition: border-color 180ms ease, box-shadow 180ms ease, background 180ms ease;
+      outline: none;
+    }
+
+    .field textarea { min-height: 120px; resize: vertical; }
+
+    .field input:focus,
+    .field textarea:focus {
+      border-color: rgba(11, 99, 246, 0.5);
+      background: #fff;
+      box-shadow: 0 0 0 4px rgba(11, 99, 246, 0.12);
+    }
+
+    .contact-actions {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .contact-note {
+      font-size: 12px;
+      color: var(--muted);
+      text-align: right;
+    }
+
+    .cta-banner {
+      margin-top: 64px;
+      padding: 24px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: linear-gradient(135deg, rgba(11, 99, 246, 0.10), rgba(9, 63, 167, 0.05));
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .cta-banner p {
+      color: var(--muted);
+    }
+
+    .cta-actions {
+      display: flex;
+      gap: 10px;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+    }
+
+    footer {
+      margin-top: 60px;
+      padding-top: 20px;
+      border-top: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    @media (max-width: 840px) {
+      .cta-banner {
+        grid-template-columns: 1fr;
+      }
+      .nav-inner {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+        padding: 16px 24px;
+      }
+      .nav-links {
+        flex-wrap: wrap;
+        gap: 20px;
+        width: 100%;
+      }
+      .brand {
+        font-size: 14px;
+      }
+      .page {
+        padding-top: 100px;
+      }
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="nav-shell">
+      <div class="nav-inner">
+        <div class="brand">
+          <span>Akil — Applied Intelligence Architect</span>
+        </div>
+        <nav class="nav-links" aria-label="Primary">
+          <a class="nav-link active" href="#about">About</a>
+          <a class="nav-link" href="#expertise">Expertise</a>
+          <a class="nav-link" href="#cases">Use Cases</a>
+          <a class="nav-link" href="#process">Process</a>
+          <a class="nav-link nav-cta" href="#contact">Engage</a>
+        </nav>
+            </div>
+    </header>
+
+    <section class="hero" id="hero">
+      <div>
+        <div class="pill">AI • Blockchain • Quant Systems</div>
+        <h1>I build intelligent systems that compound value.</h1>
+        <p>I am a senior architect delivering AI automation, secure decentralized infrastructure, and algorithmic trading engines. 12+ years shipping production-grade systems for funds, enterprises, and venture-backed founders.</p>
+        <div class="hero__meta">
+          <span class="pill">Independent & accountable</span>
+          <span class="pill">Architecture to execution</span>
+          <span class="pill">Security & performance first</span>
+            </div>
+        <div class="hero__actions" style="display:flex; gap:10px; flex-wrap:wrap;">
+          <a class="cta" href="#contact">Work With Me</a>
+          <a class="cta secondary" href="#cases">View Use Cases</a>
+        </div>
+                    </div>
+      <div class="card" style="background: linear-gradient(180deg, rgba(11,99,246,0.08), rgba(11,99,246,0.02));">
+        <h3>Precision-built for decision makers</h3>
+        <p>Every engagement is architected for resilience, observability, and measurable ROI. I design secure data flows, deterministic execution paths, and rigorous deployment pipelines—so you get enterprise reliability with individual ownership.</p>
+        <ul class="list">
+          <li>ML/LLM pipelines with governance and cost controls</li>
+          <li>On-chain systems with formalized security postures</li>
+          <li>Latency-aware trading stacks with live risk limits</li>
+        </ul>
+                    </div>
+    </section>
+
+    <section id="about">
+      <div class="section-header">
+        <h2>About Me</h2>
+        <p>I operate as a single-threaded owner across architecture, build, and optimization. My focus: intelligent automation, cryptographically secure systems, and execution-grade trading infrastructure. The outcome is strategic leverage with minimal overhead.</p>
+                    </div>
+      <div class="grid-3">
+        <div class="card">
+          <h3>Systems Thinking</h3>
+          <p>I map constraints across data, compute, security, and capital efficiency, then design architectures that stay robust under load and scrutiny.</p>
+                </div>
+        <div class="card">
+          <h3>Enterprise Rigor</h3>
+          <p>Audit-ready code paths, observability-first instrumentation, and deployment practices aligned with regulated and high-stakes environments.</p>
+            </div>
+        <div class="card">
+          <h3>Outcome-Driven</h3>
+          <p>Every deliverable is tied to measurable outcomes: reduced operational drag, faster execution, safer capital flows, and clearer governance.</p>
+        </div>
+        </div>
+    </section>
+
+    <section id="expertise">
+            <div class="section-header">
+        <h2>Core Expertise</h2>
+        <p>Deep, hands-on execution across AI systems, decentralized infrastructure, and automated trading. Each domain is handled end-to-end—from architecture to deployment.</p>
+            </div>
+      <div class="grid-3">
+        <div class="card">
+          <h3>AI Systems & Automation</h3>
+          <p>Custom LLM tooling, retrieval pipelines, reinforcement-learning loops, and deterministic guardrails to reduce manual workflows and surface actionable insights.</p>
+          <ul class="list">
+            <li>LLM orchestration with policy enforcement</li>
+            <li>Vector + SQL hybrid retrieval, embeddings at scale</li>
+            <li>MLOps with CI/CD, feature stores, and monitoring</li>
+          </ul>
+                    </div>
+        <div class="card">
+          <h3>Blockchain & Decentralized Infrastructure</h3>
+          <p>Secure smart contracts, multi-chain bridges, and enterprise-grade nodes with rigorous testing and on-chain observability.</p>
+          <ul class="list">
+            <li>DeFi protocols, staking, and liquidity mechanisms</li>
+            <li>Zero-knowledge friendly designs and audits alignment</li>
+            <li>Key management, signing flows, and monitoring</li>
+                    </ul>
+                    </div>
+        <div class="card">
+          <h3>Algorithmic Trading & Quant Systems</h3>
+          <p>Low-latency execution stacks, market data engineering, and risk-managed automation spanning centralized and decentralized venues.</p>
+          <ul class="list">
+            <li>Strategy research to live trading pipelines</li>
+            <li>Exchange connectivity, throttling, and failover</li>
+            <li>Risk controls, PnL telemetry, and post-trade analytics</li>
+                    </ul>
+                    </div>
+                </div>
+    </section>
+
+    <section id="why">
+      <div class="section-header">
+        <h2>Why Clients Choose Me</h2>
+        <p>Direct accountability, architectural depth, and a security-first mindset. I translate complex requirements into reliable, performant systems.</p>
+                    </div>
+      <div class="grid-3">
+        <div class="card">
+          <h3>Single Accountable Owner</h3>
+          <p>One lead from architecture to deployment—no handoffs, no dilution of responsibility.</p>
+                    </div>
+        <div class="card">
+          <h3>Architecture-Led Delivery</h3>
+          <p>Design-first approach with explicit threat models, data contracts, and SLOs before code is written.</p>
+                </div>
+        <div class="card">
+          <h3>Security, Performance, Scale</h3>
+          <p>Secure defaults, latency-aware patterns, and scalability baked into every layer—API, data, and infra.</p>
+        </div>
+        <div class="card">
+          <h3>Strategic Partnership</h3>
+          <p>Advisory-level collaboration with founders, CTOs, CIOs, and PMs to align technology with capital efficiency.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="cases">
+      <div class="section-header">
+        <h2>Selected Use Cases</h2>
+        <p>Representative scenarios demonstrating how I design, build, and optimize systems that hold up under production realities.</p>
+                            </div>
+      <div class="use-cases">
+        <div class="case">
+          <strong>AI GOVERNANCE • ENTERPRISE</strong>
+          <h3>Policy-Guarded LLM Ops</h3>
+          <p>Designed a retrieval-augmented LLM platform with policy layers, human-in-the-loop validation, and spend telemetry. Reduced manual review by 62% and enabled auditable decision trails.</p>
+                            </div>
+        <div class="case">
+          <strong>DEFI • SECURITY & SCALE</strong>
+          <h3>Capital-Efficient Liquidity Engine</h3>
+          <p>Architected smart contracts with formal verification targets, circuit breakers, and MEV-aware execution paths. Improved capital utilization while maintaining strict risk bounds.</p>
+                        </div>
+        <div class="case">
+          <strong>TRADING • MULTI-VENUE</strong>
+          <h3>Latency-Conscious Execution</h3>
+          <p>Built a cross-exchange arbitrage stack with failover routing, kill switches, and live risk limits. Achieved consistent sub-25ms decision loops with deterministic logging.</p>
+                            </div>
+        <div class="case">
+          <strong>DATA • AUTOMATION</strong>
+          <h3>Signal Pipeline Modernization</h3>
+          <p>Modernized market data ingestion with streaming transforms, feature stores, and drift detection. Increased signal freshness while cutting compute costs via adaptive batching.</p>
+                            </div>
+                        </div>
+    </section>
+
+    <section id="process">
+      <div class="section-header">
+        <h2>Working Process</h2>
+        <p>Transparent, measurable stages—each with explicit deliverables, acceptance criteria, and operational safeguards.</p>
+      </div>
+      <div class="process">
+        <div class="step">
+          <span>01</span>
+          <h3>Discovery & Strategy</h3>
+          <p>Clarify objectives, constraints, compliance needs, and success metrics. Produce a concise architecture brief.</p>
+                            </div>
+        <div class="step">
+          <span>02</span>
+          <h3>System Architecture</h3>
+          <p>Design data flows, threat models, and SLOs. Select stack components mapped to performance and governance.</p>
+                            </div>
+        <div class="step">
+          <span>03</span>
+          <h3>Development & Validation</h3>
+          <p>Implement services, contracts, and pipelines with automated tests, simulation, and observability baked in.</p>
+                        </div>
+        <div class="step">
+          <span>04</span>
+          <h3>Deployment & Optimization</h3>
+          <p>Harden environments, roll out gradually, monitor, and tune for latency, reliability, and cost.</p>
+                    </div>
+                </div>
+    </section>
+
+    <section id="stack">
+      <div class="section-header">
+        <h2>Technology Stack</h2>
+        <p>Selected, proven tools chosen for security, performance, and operability—no unnecessary complexity.</p>
+                        </div>
+      <div class="stack">
+        <div class="stack-group">
+          <h4>AI & Data</h4>
+          <div class="badges">
+            <span class="badge">Python</span>
+            <span class="badge">PyTorch</span>
+            <span class="badge">Transformers</span>
+            <span class="badge">Ray</span>
+            <span class="badge">Airflow</span>
+            <span class="badge">LangChain</span>
+            <span class="badge">Postgres</span>
+            <span class="badge">DuckDB</span>
+                        </div>
+                        </div>
+        <div class="stack-group">
+          <h4>Blockchain</h4>
+          <div class="badges">
+            <span class="badge">Solidity</span>
+            <span class="badge">Rust</span>
+            <span class="badge">Hardhat</span>
+            <span class="badge">Foundry</span>
+            <span class="badge">EVM / L2</span>
+            <span class="badge">Cosmos-SDK</span>
+            <span class="badge">zk-friendly</span>
+            <span class="badge">Geth / Erigon</span>
+          </div>
+        </div>
+        <div class="stack-group">
+          <h4>Trading & Infra</h4>
+          <div class="badges">
+            <span class="badge">C++</span>
+            <span class="badge">Go</span>
+            <span class="badge">Node.js</span>
+            <span class="badge">Kafka</span>
+            <span class="badge">Redis</span>
+            <span class="badge">Kubernetes</span>
+            <span class="badge">Terraform</span>
+            <span class="badge">Prometheus</span>
+            <span class="badge">Grafana</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+      <div class="contact">
+        <div class="contact-header">
+          <h2>Ready for decisive collaboration</h2>
+          <p>For founders, CTOs, CIOs, and fund managers who need an accountable architect to design and deliver intelligent systems with security, performance, and clarity.</p>
+                </div>
+        <div class="contact-grid">
+          <div class="contact-meta">
+            <h3>Selective engagements</h3>
+            <p>Every build is bespoke and operated with disciplined governance. Expect direct access, transparent milestones, and architecture-first execution.</p>
+            <ul class="list">
+              <li>AI systems with guardrails, governance, and cost discipline</li>
+              <li>On-chain infrastructure with security and observability baked in</li>
+              <li>Algorithmic trading stacks with latency, risk, and auditability controls</li>
+            </ul>
+                </div>
+          <form class="contact-form">
+            <div class="field">
+              <label for="name">Name</label>
+              <input id="name" name="name" type="text" placeholder="Your name" required>
+                </div>
+            <div class="field">
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" placeholder="you@company.com" required>
+            </div>
+            <div class="field">
+              <label for="message">Message</label>
+              <textarea id="message" name="message" placeholder="Project context, objectives, timelines" required></textarea>
+                </div>
+            <div class="contact-actions">
+              <button class="cta" type="submit">Start a Conversation</button>
+            </div>
+            <div class="contact-note">No spam. Responses typically within one business day.</div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <span>Akil — Applied Intelligence Architect</span>
+      <span>Built for decisive leaders • Security and performance first</span>
+    </footer>
+  </div>
+  <script>
+    // Subtle scroll state for navbar
+    const navShell = document.querySelector('.nav-shell');
+    if (navShell) {
+      let lastScroll = 0;
+      window.addEventListener('scroll', () => {
+        const currentScroll = window.pageYOffset;
+        if (currentScroll > 20) {
+          navShell.classList.add('scrolled');
+        } else {
+          navShell.classList.remove('scrolled');
+        }
+        lastScroll = currentScroll;
+      }, { passive: true });
+    }
+  </script>
+</body>
+</html>
