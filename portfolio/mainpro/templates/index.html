@@ -171,15 +171,60 @@
 
     .hero {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 32px;
-      padding: 28px;
-      border: 1px solid var(--line);
-      border-radius: 20px;
-      background: radial-gradient(circle at 15% 20%, rgba(11, 99, 246, 0.08), transparent 35%),
-                  radial-gradient(circle at 80% 0%, rgba(9, 63, 167, 0.08), transparent 30%),
-                  #fff;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: 36px;
+      padding: 40px;
+      margin-top: 0;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(11, 99, 246, 0.14);
+      border-radius: 24px;
+      background:
+        radial-gradient(circle at 16% 18%, rgba(11, 99, 246, 0.12), transparent 48%),
+        radial-gradient(circle at 88% 10%, rgba(9, 63, 167, 0.10), transparent 45%),
+        radial-gradient(circle at 60% 78%, rgba(11, 99, 246, 0.08), transparent 42%),
+        #fff;
       box-shadow: var(--shadow);
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      right: -220px;
+      top: -220px;
+      width: 520px;
+      height: 520px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 30%, rgba(11, 99, 246, 0.22), transparent 55%),
+                  radial-gradient(circle at 70% 40%, rgba(9, 63, 167, 0.18), transparent 55%);
+      filter: blur(10px);
+      opacity: 0.9;
+      pointer-events: none;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      left: -260px;
+      bottom: -260px;
+      width: 560px;
+      height: 560px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 40% 40%, rgba(11, 99, 246, 0.16), transparent 58%),
+                  radial-gradient(circle at 65% 55%, rgba(9, 63, 167, 0.14), transparent 58%);
+      filter: blur(14px);
+      opacity: 0.85;
+      pointer-events: none;
+    }
+
+    .hero > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-main {
+      min-width: 0;
     }
 
     .hero h1 {
@@ -202,18 +247,98 @@
       margin: 18px 0 24px;
     }
 
+    .hero__actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 4px;
+    }
+
+    .hero-avatar {
+      width: 72px;
+      height: 72px;
+      border-radius: 16px;
+      object-fit: cover;
+      border: 1px solid rgba(11, 99, 246, 0.14);
+      box-shadow: 0 10px 28px rgba(10, 85, 209, 0.12), 0 0 0 6px rgba(11, 99, 246, 0.06);
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .hero-identity {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 16px;
+    }
+
+    .hero-identity .hero-avatar {
+      width: 64px;
+      height: 64px;
+      margin-bottom: 0;
+    }
+
+    .hero-identity-name {
+      font-weight: 800;
+      font-size: 16px;
+      letter-spacing: -0.3px;
+      color: var(--text);
+      line-height: 1.2;
+    }
+
+    .hero-identity-role {
+      margin-top: 2px;
+      font-weight: 600;
+      font-size: 13px;
+      letter-spacing: 0.02em;
+      color: var(--muted);
+      line-height: 1.2;
+    }
+
+    .hero-panel {
+      display: grid;
+      gap: 18px;
+      align-content: start;
+      justify-items: end;
+      min-width: 0;
+    }
+
+
+    .hero-panel-card {
+      border: 1px solid rgba(11, 99, 246, 0.14);
+      border-radius: 18px;
+      padding: 20px;
+      background:
+        radial-gradient(circle at 20% 10%, rgba(11, 99, 246, 0.12), transparent 45%),
+        radial-gradient(circle at 90% 20%, rgba(9, 63, 167, 0.10), transparent 45%),
+        rgba(255, 255, 255, 0.92);
+      box-shadow: 0 18px 50px rgba(10, 85, 209, 0.10);
+    }
+
+    .hero-panel-card h3 {
+      font-size: 18px;
+      margin-bottom: 10px;
+      letter-spacing: -0.2px;
+    }
+
+    .hero-panel-card p {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+
     .cta {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      padding: 14px 20px;
+      padding: 12px 18px;
       border-radius: 12px;
       background: linear-gradient(135deg, var(--blue-600), var(--blue-800));
       color: #fff;
       font-weight: 700;
       letter-spacing: 0.2px;
       transition: transform 200ms ease, box-shadow 200ms ease;
-      box-shadow: 0 15px 40px rgba(11, 99, 246, 0.2);
+      box-shadow: 0 12px 32px rgba(11, 99, 246, 0.18);
     }
 
     .cta:hover {
@@ -226,6 +351,19 @@
       color: var(--blue-800);
       border: 1px solid rgba(11, 99, 246, 0.2);
       box-shadow: none;
+    }
+    .cta.tertiary {
+      background: transparent;
+      color: var(--muted);
+      border: none;
+      box-shadow: none;
+      padding: 10px 12px;
+      font-weight: 600;
+    }
+    .cta.tertiary:hover {
+      color: var(--blue-800);
+      text-decoration: underline;
+      transform: none;
     }
 
     .cta.secondary:hover {
@@ -255,6 +393,24 @@
       color: var(--muted);
       max-width: 620px;
       font-size: 15px;
+    }
+    .reveal {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+    .reveal.in-view {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity 280ms ease, transform 280ms ease;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .reveal {
+        opacity: 1;
+        transform: none;
+      }
+      .reveal.in-view {
+        transition: none;
+      }
     }
 
     .grid-3 {
@@ -361,6 +517,208 @@
       transform: translateY(-4px);
       border-color: rgba(11, 99, 246, 0.28);
       box-shadow: 0 24px 70px rgba(10, 85, 209, 0.12);
+    }
+
+    .project-visual {
+      width: 100%;
+      height: 140px;
+      border-radius: 12px;
+      margin-bottom: 14px;
+      position: relative;
+      overflow: hidden;
+      background: radial-gradient(circle at 30% 30%, rgba(11, 99, 246, 0.12), transparent 55%),
+                  radial-gradient(circle at 75% 15%, rgba(9, 63, 167, 0.12), transparent 55%),
+                  rgba(255, 255, 255, 0.92);
+    }
+
+    .project-visual.esper-mini {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 12px 14px;
+    }
+
+    .project-visual.esper-mini .esper-mini-left {
+      position: relative;
+      width: 124px;
+      height: 100%;
+      flex: 0 0 auto;
+      display: grid;
+      place-items: center;
+    }
+
+    .project-visual.esper-mini .esper-mini-right {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 10px;
+      align-items: flex-start;
+    }
+
+    .project-visual.esper-mini .esper-mini-title {
+      min-height: 20px;
+      width: 100%;
+      max-width: 100%;
+      font-weight: 700;
+      letter-spacing: -0.2px;
+      color: var(--blue-700);
+      font-size: 15px;
+      line-height: 1.25;
+      opacity: 1;
+      transition: opacity 260ms ease;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .project-visual.esper-mini .esper-mini-subtitle {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.2;
+      max-width: 36ch;
+    }
+
+    .project-visual.esper-mini .esper-mini-left .esper-mini-lava {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 108px;
+      height: 108px;
+      border-radius: 999px;
+      filter: blur(16px);
+      opacity: 0.85;
+      mix-blend-mode: multiply;
+      background:
+        radial-gradient(circle at 30% 30%, rgba(11, 99, 246, 0.85) 0%, transparent 45%),
+        radial-gradient(circle at 70% 35%, rgba(9, 63, 167, 0.78) 0%, transparent 48%),
+        radial-gradient(circle at 50% 70%, rgba(11, 99, 246, 0.62) 0%, transparent 50%);
+      animation: esperMiniColorShift 14s linear infinite;
+    }
+
+    .project-visual.esper-mini .esper-mini-left .esper-mini-sphere {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 96px;
+      height: 96px;
+      border-radius: 999px;
+      border: 1px solid rgba(11, 99, 246, 0.14);
+      background: rgba(255, 255, 255, 0.55);
+      box-shadow:
+        0 16px 40px rgba(10, 85, 209, 0.14),
+        inset 0 0 28px rgba(255, 255, 255, 0.55),
+        inset 0 -18px 40px rgba(9, 63, 167, 0.06);
+      backdrop-filter: blur(7px);
+      -webkit-backdrop-filter: blur(7px);
+      animation: esperMiniFloat 6s ease-in-out infinite;
+    }
+
+    .project-visual.esper-mini .esper-mini-left .esper-mini-sphere::before {
+      content: '';
+      position: absolute;
+      top: 48%;
+      left: 46%;
+      transform: translate(-50%, -50%);
+      width: 7px;
+      height: 20px;
+      border-radius: 2px;
+      background: rgba(255, 255, 255, 0.95);
+      box-shadow: 18px 0 0 rgba(255, 255, 255, 0.95);
+      animation: esperMiniBlink 4s infinite, esperMiniLook 9s infinite ease-in-out;
+    }
+
+    .project-visual.esper-mini .esper-mini-left .esper-mini-sphere::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 999px;
+      box-shadow: 0 0 46px rgba(11, 99, 246, 0.10);
+      animation: esperMiniGlowPulse 2.4s ease-in-out infinite;
+    }
+
+    .project-visual.esper-mini .esper-mini-wave {
+      width: 100%;
+      max-width: 360px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 2px;
+    }
+
+    .project-visual.esper-mini .esper-mini-wave span {
+      width: 3px;
+      height: 30%;
+      border-radius: 2px;
+      background: linear-gradient(to top, var(--blue-600), var(--blue-800));
+      animation: esperWavePulse 1s infinite ease-in-out;
+    }
+
+    .project-visual.esper-mini .esper-mini-wave span:nth-child(odd) { animation-duration: 0.8s; }
+    .project-visual.esper-mini .esper-mini-wave span:nth-child(even) { animation-duration: 1.1s; }
+    .project-visual.esper-mini .esper-mini-wave span:nth-child(3n) { animation-delay: 0.2s; }
+    .project-visual.esper-mini .esper-mini-wave span:nth-child(4n) { animation-delay: 0.4s; }
+    .project-visual.esper-mini .esper-mini-wave span:nth-child(5n) { animation-delay: 0.1s; }
+
+    @keyframes esperMiniFloat {
+      0%, 100% {
+        transform: translate(-50%, -50%);
+      }
+      50% {
+        transform: translate(-50%, calc(-50% - 6px));
+      }
+    }
+
+    @keyframes esperMiniColorShift {
+      0% {
+        filter: blur(16px) hue-rotate(0deg);
+      }
+      100% {
+        filter: blur(16px) hue-rotate(30deg);
+      }
+    }
+
+    @keyframes esperMiniGlowPulse {
+      0%, 100% {
+        box-shadow: 0 0 46px rgba(11, 99, 246, 0.10);
+      }
+      50% {
+        box-shadow: 0 0 60px rgba(11, 99, 246, 0.18);
+      }
+    }
+
+    @keyframes esperMiniBlink {
+      0%, 95% { height: 20px; }
+      97% { height: 3px; }
+      100% { height: 20px; }
+    }
+
+    @keyframes esperMiniLook {
+      0%, 40% {
+        left: 46%;
+        box-shadow: 18px 0 0 rgba(255, 255, 255, 0.95);
+      }
+      45%, 55% {
+        left: 40%;
+        box-shadow: 18px 0 0 rgba(255, 255, 255, 0.95);
+      }
+      60%, 70% {
+        left: 52%;
+        box-shadow: 18px 0 0 rgba(255, 255, 255, 0.95);
+      }
+      75%, 100% {
+        left: 46%;
+        box-shadow: 18px 0 0 rgba(255, 255, 255, 0.95);
+      }
+    }
+
+    @keyframes esperWavePulse {
+      0%, 100% { height: 20%; opacity: 0.5; }
+      50% { height: 100%; opacity: 1; }
     }
 
     .project-feature h3 {
@@ -1089,6 +1447,26 @@
         grid-template-columns: 1fr;
       }
 
+      .hero {
+        grid-template-columns: 1fr;
+        padding: 26px;
+        gap: 18px;
+      }
+
+      .hero-identity .hero-avatar {
+        width: 60px;
+        height: 60px;
+      }
+
+      .hero-panel {
+        justify-items: start;
+      }
+
+
+      .hero-metrics {
+        grid-template-columns: 1fr;
+      }
+
       .project-meta {
         justify-content: flex-start;
       }
@@ -1116,13 +1494,13 @@
           <a class="nav-link" href="#expertise">Expertise</a>
           <a class="nav-link" href="#cases">Use Cases</a>
           <a class="nav-link" href="#projects">Projects</a>
-          <a class="nav-link" href="#certificates">Certificates</a>
           <a class="nav-link" href="#process">Process</a>
+          <a class="nav-link" href="#certificates">Certificates</a>
           <a class="nav-link nav-cta" href="#contact">Engage</a>
         </nav>
             </div>
     </header>
-
+ 
     <section class="hero" id="hero">
       <div>
         <div class="pill">AI • Blockchain • Quant Systems</div>
@@ -1148,6 +1526,8 @@
         </ul>
                     </div>
     </section>
+
+
 
     <section id="about">
       <div class="section-header">
@@ -1206,30 +1586,7 @@
                 </div>
     </section>
 
-    <section id="why">
-      <div class="section-header">
-        <h2>Why Clients Choose Me</h2>
-        <p>Direct accountability, architectural depth, and a security-first mindset. I translate complex requirements into reliable, performant systems.</p>
-                    </div>
-      <div class="grid-3">
-        <div class="card">
-          <h3>Single Accountable Owner</h3>
-          <p>One lead from architecture to deployment—no handoffs, no dilution of responsibility.</p>
-                    </div>
-        <div class="card">
-          <h3>Architecture-Led Delivery</h3>
-          <p>Design-first approach with explicit threat models, data contracts, and SLOs before code is written.</p>
-                </div>
-        <div class="card">
-          <h3>Security, Performance, Scale</h3>
-          <p>Secure defaults, latency-aware patterns, and scalability baked into every layer—API, data, and infra.</p>
-        </div>
-        <div class="card">
-          <h3>Strategic Partnership</h3>
-          <p>Advisory-level collaboration with founders, CTOs, CIOs, and PMs to align technology with capital efficiency.</p>
-            </div>
-        </div>
-    </section>
+    
 
     <section id="cases">
       <div class="section-header">
@@ -1259,6 +1616,30 @@
                             </div>
                         </div>
     </section>
+    <section id="why">
+      <div class="section-header">
+        <h2>Why Clients Choose Me</h2>
+        <p>Direct accountability, architectural depth, and a security-first mindset. I translate complex requirements into reliable, performant systems.</p>
+                    </div>
+      <div class="grid-3">
+        <div class="card">
+          <h3>Single Accountable Owner</h3>
+          <p>One lead from architecture to deployment—no handoffs, no dilution of responsibility.</p>
+                    </div>
+        <div class="card">
+          <h3>Architecture-Led Delivery</h3>
+          <p>Design-first approach with explicit threat models, data contracts, and SLOs before code is written.</p>
+                </div>
+        <div class="card">
+          <h3>Security, Performance, Scale</h3>
+          <p>Secure defaults, latency-aware patterns, and scalability baked into every layer—API, data, and infra.</p>
+        </div>
+        <div class="card">
+          <h3>Strategic Partnership</h3>
+          <p>Advisory-level collaboration with founders, CTOs, CIOs, and PMs to align technology with capital efficiency.</p>
+            </div>
+        </div>
+    </section>
 
     <section id="projects">
       <div class="section-header">
@@ -1267,7 +1648,77 @@
       </div>
       <div class="projects-layout">
         <div class="project-feature">
-          <div class="pill">Featured Build</div>
+          <div class="project-visual esper-mini" aria-hidden="true">
+            <div class="esper-mini-left">
+              <div class="esper-mini-lava"></div>
+              <div class="esper-mini-sphere"></div>
+            </div>
+            <div class="esper-mini-right">
+              <div id="esper-dynamic-text" class="esper-mini-title" aria-hidden="true"></div>
+              <div class="esper-mini-wave" aria-hidden="true">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+          </div>
+        </div>
           <h3>LLM Workflow Automation Suite</h3>
           <p>End-to-end assistant for research, document processing, and reporting with retrieval, policy checks, and measurable cost controls. Built to be auditable, fast, and safe-by-default.</p>
           <ul class="list">
@@ -1887,6 +2338,82 @@
         img.parentElement.classList.add('fallback');
       }
     });
+
+    const esperTextEl = document.getElementById('esper-dynamic-text');
+    if (esperTextEl) {
+      const phrases = [
+        "Do you need a policy-guarded LLM workflow with audit trails?",
+        "Should we add source-grounded RAG with citations and controls?",
+        "Where should guardrails sit: prompts, tools, or approvals?",
+        "Do you need usage, quality, and spend telemetry from day one?",
+        "What latency target do you need: sub-25ms decision loops?",
+        "Should we design SLOs and a threat model before build-out?",
+        "Do you need kill switches, circuit breakers, and runbooks?",
+        "Are you monitoring on-chain risk with invariants and alerts?",
+        "Do you need real-time signals with drift detection in prod?"
+      ];
+
+      let lastIndex = -1;
+      const setRandomPhrase = () => {
+        let newIndex;
+        do {
+          newIndex = Math.floor(Math.random() * phrases.length);
+        } while (newIndex === lastIndex);
+        lastIndex = newIndex;
+        esperTextEl.textContent = phrases[newIndex];
+      };
+
+      const fadeMs = 260;
+      const holdMs = 2800;
+      let timerId = null;
+
+      const stopRotation = () => {
+        if (timerId) {
+          clearTimeout(timerId);
+          timerId = null;
+        }
+      };
+
+      const scheduleNext = () => {
+        stopRotation();
+        timerId = setTimeout(() => {
+          esperTextEl.style.opacity = '0';
+          timerId = setTimeout(() => {
+            setRandomPhrase();
+            esperTextEl.style.opacity = '1';
+            scheduleNext();
+          }, fadeMs);
+        }, holdMs);
+      };
+
+      setRandomPhrase();
+      scheduleNext();
+
+      document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+          stopRotation();
+          return;
+        }
+        esperTextEl.style.opacity = '1';
+        scheduleNext();
+      });
+    }
+
+    const prefersReduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const revealEls = Array.from(document.querySelectorAll('.reveal'));
+    if (prefersReduce) {
+      revealEls.forEach(el => el.classList.add('in-view'));
+    } else {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in-view');
+            io.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+      revealEls.forEach(el => io.observe(el));
+    }
   </script>
 </body>
 </html>
